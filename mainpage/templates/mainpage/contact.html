@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Контакты - Строительная Компания</title>
-</head>
+{% extends 'mainpage/baselayout.html' %}
+
+{% block content %}
+
 <body>
     <div id="header">
        
@@ -17,6 +13,15 @@
             <p>Свяжитесь с нами по следующим контактным данным:</p>
             <p>Email: contact@example.com</p>
             <p>Телефон: +7 (123) 456-78-90</p>
+
+
+<form action="{% url 'contact' %}" method="post" >
+    {% csrf_token %}
+        {{ form }}
+    <input type="submit" value="Создать задачу">
+</form>
+    
+
             <form action="submit_contact_form.php" method="post">
                 <label for="name">Имя:</label>
                 <input type="text" id="name" name="name" required>
@@ -37,3 +42,5 @@
     </div>
 </body>
 </html>
+
+{% endblock  %}

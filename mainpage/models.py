@@ -27,3 +27,8 @@ class Project(models.Model):
 
     def __str__(self):
         return f"Проект для {self.client} - {self.type_of_work}"
+    
+class FeedBack(models.Model):
+    name = models.CharField(max_length=128)
+    email = models.EmailField(max_length=64)
+    message = models.CharField(max_length=1024)
