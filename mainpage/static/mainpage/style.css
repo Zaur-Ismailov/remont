@@ -5,12 +5,83 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     line-height: 1.6;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+            
 }
 
+
+.ManiText{
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.services_content{
+    display: flex;
+    justify-content: center;
+    margin: 40px 40px;
+    padding: 40px 40px;
+}
+p{
+    font-family: 'Roboto', sans-serif; 
+    font-size: large;
+    color: black;
+    padding: 10px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+
+h1,h2{
+    font-family: 'Playfair Display', serif;
+            color: #0056b3;
+            margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.services_img{
+    width: 20%; /* Настройте ширину по вашему усмотрению */
+    margin: 0 10px; /* Отступ между изображениями */
+    display: inline-block; /* Позволяет изображениями быть в одном рядe */
+    border: 1px solid black;
+    vertical-align: top; /* Выравнивание по верхнему краю */
+}
+.services_image_container{
+    display: flex;
+    justify-content: center;
+
+}
+
+#reviews-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+.review {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    margin: 10px;
+    width: 250px;  /* Ширина каждого отзыва */
+    transition: all 0.3s ease; /* Плавный переход */}
+
+
 header {
-    background: #333;
+    
     color: #fff;
     position: fixed;
     width: 100%;
@@ -20,6 +91,13 @@ header {
 
 .navbar {
     padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black;
+    border-bottom-left-radius: 15%;
+    border-bottom-right-radius: 15%;
+    background: #333;
 }
 
 .navbar-menu {
@@ -43,6 +121,7 @@ header {
 main {
     padding-top: 60px;
     padding: 20px;
+    margin: 20px;
 }
 
 section {
@@ -61,6 +140,7 @@ footer {
 
 .navbar-footer {
     margin-top: 20px;
+    
 }
 
 
@@ -130,4 +210,36 @@ footer {
     text-align: center; 
     padding: 10px 0; 
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.available{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.unavailable{
+    color: grey;
+    text-decoration: none;
+    
+}
+
+.navbar-logo {
+    height: 50px; /* или любой другой размер, который вам нужен */
+    margin-right: 20px; /* отступ между логотипом и навигационными ссылками */
+    border-radius: 50%; /* Это делает изображение круглым */
+    object-fit: cover;
+}
+
+
+.background {
+    position: fixed; /* Закрепляет элемент на экране */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../static/mainpage/images/MainFon2.png"); /* Укажите путь к вашему изображению */
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px); /* Размытие фона */
+    z-index: -1; /* Устанавливает порядок слоев, чтобы фон был под текстом */
 }

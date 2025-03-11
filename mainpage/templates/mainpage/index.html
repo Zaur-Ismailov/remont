@@ -1,33 +1,81 @@
 {% extends 'mainpage/baselayout.html' %}
 {% block content %}
+{% load static %}
 
 <body>
-    
-    
-    <main>
+
+
+    <main class="Main_content">
         <section id="home">
             <h1>Добро пожаловать в нашу строительную компанию!</h1>
-            <p>Мы предлагаем широкий спектр строительных услуг...</p>
+            
+            <p class="MainText" style="font-family: 'Roboto', sans-serif;"> Если вы задумали ремонт - вы по адресу! Мы поможем вам со всеми трудностями, которые могут у Вас возникнуть в этом не легком процессе!</p>
         </section>
-        
+
         <section id="services">
             <h2>Наши услуги</h2>
-            <p>Строительство, ремонт, отделка и многие другие услуги...</p>
-        </section>
+            <p class="MainText">Строительство, ремонт, отделка и многие другие услуги...</p>
+           <div class="services_image_container">
         
+            <img class="services_img" src="{% static 'mainpage/images/Plitka.png' %}" alt="">
+            <img class="services_img" src="{% static 'mainpage/images/Valik.png' %}" alt="">
+            <img class="services_img" src="{% static 'mainpage/images/Gips.png' %}" alt="">
+            <img class="services_img" src="{% static 'mainpage/images/Nule.png' %}" alt="">
+        </div>
+        </section>
+
         <section id="projects">
             <h2>Реализованные проекты</h2>
-            <p>Посмотрите наши успешные проекты...</p>
+            <p class="MainText">Посмотрите наши успешные проекты...</p>
         </section>
-        
+
         <section id="about">
             <h2>О нас</h2>
-            <p>Краткая информация о нашей компании и команде...</p>
+            <p class="MainText">Мы - настоящие профессионалы в своей сфере, более подробно можете познакомиться с нами перейдя по ссылку "О нас" !</p>
         </section>
-        
-        <section id="contact">
-            <h2>Контакты</h2>
-            <p>Свяжитесь с нами через форму обратной связи...</p>
+
+        <section id="feedback">
+            <h2>Отзывы</h2>
+            <div id="reviews-container"></div>
+    
+
+    <script>
+        const reviews = [
+            "Отличная компания! Ремонт сделали быстро и качественно.",
+            "Работа выполнена на высоком уровне. Всем рекомендую!",
+            "Приятно было сотрудничать. Все сделали вовремя и в срок.",
+            "Очень доволен результатом. Спасибо команде!",
+            "Ремонт превзошел все ожидания. Восхитительная работа!",
+            "Отличный сервис и профессиональный подход к делу.",
+            "Превосходные специалисты, результат на высоте.",
+            "Сервис, который действительно заботится о клиентах."
+        ];
+
+        let currentIndex = 0; // Индекс текущего отзыва
+
+        function showNewReviews() {
+            const container = document.getElementById('reviews-container');
+            container.innerHTML = ''; // Очищаем контейнер
+
+            for (let i = 0; i < 3; i++) {
+                const reviewDiv = document.createElement('div');
+                reviewDiv.className = 'review';
+                reviewDiv.innerText = reviews[(currentIndex + i) % reviews.length];
+                container.appendChild(reviewDiv);
+            }
+            // Обновляем текущий индекс
+            currentIndex += 3;
+            if (currentIndex >= reviews.length) {
+                currentIndex = 0; // Сбрасываем индекс, если все отзывы показаны
+            }
+        }
+
+        // Отображаем первые отзывы при загрузке страницы
+        window.onload = showNewReviews;
+
+        // Автоматически обновляем отзывы каждые 10 секунд
+        setInterval(showNewReviews, 5000);
+    </script>
         </section>
     </main>
 

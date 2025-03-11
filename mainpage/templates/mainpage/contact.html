@@ -15,14 +15,14 @@
             <p>Телефон: +7 (123) 456-78-90</p>
 
 
-<form action="{% url 'contact' %}" method="post" >
+<form action="{% url 'contact' %}" method="post" class= 'contact-form' >
     {% csrf_token %}
         {{ form }}
     <input type="submit" value="Создать задачу">
 </form>
     
 
-            <form action="submit_contact_form.php" method="post">
+            <form class= 'contact-form' action="submit_contact_form.php" method="post">
                 <label for="name">Имя:</label>
                 <input type="text" id="name" name="name" required>
                 
