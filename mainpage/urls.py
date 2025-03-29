@@ -1,6 +1,7 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from . import views
-
+from django.contrib.auth.views import LoginView
 urlpatterns = [
     path('', views.index, name='home'), # views.py should contain def index(request)..... 
     path('services/', views.services, name='services'), 
@@ -13,6 +14,7 @@ urlpatterns = [
     path('worker_status/', views.worker_status, name='worker_status'),
     path('api/work_types/', views.work_types_api, name='work_types_api'),
     path('remove_work/<int:work_id>/', views.remove_work, name='remove_work'),
+    
     
 
 # добавить пути к остальным страницам

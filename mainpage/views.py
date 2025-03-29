@@ -3,6 +3,12 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
 from .models import WorkType, SelectedWork
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm
+from django.contrib import messages
+
+def tasklist(request):
+    return render(request, 'mainpage/tasklist.html')
 
 def work_types_api(request):
     work_types = WorkType.objects.all().values('id', 'name', 'cost_per_sqm')
@@ -74,6 +80,45 @@ def remove_work(request, work_id):
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
-def tasklist(request):
-    return render(request, 'mainpage/tasklist.html')
 
+
+
+def auth_view(request):
+    context = {
+        'login_form': AuthenticationForm(),
+        'register_form': UserCreationForm(),
+        'reset_form': PasswordResetForm(),
+    }
+    return render(request, 'mainpage/auth.html', context)
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+        context = {
+            'login_form': form,
+            'register_form': UserCreationForm(),
+            'reset_form': PasswordResetForm(),
+            'active_tab': 'login'
+        }
+        return render(request, 'mainpage/auth.html', context)
+    return redirect('auth')
+
+def register_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+        context = {
+            'login_form': AuthenticationForm(),
+            'register_form': form,
+            'reset_form': PasswordResetForm(),
+            'active_tab': 'register'
+        }
+        return render(request, 'mainpage/auth.html', context)
+    return redirect('auth')
