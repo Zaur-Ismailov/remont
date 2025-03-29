@@ -1,5 +1,7 @@
 from django.contrib import admin
 from . import models
+from .models import WorkType
+admin.site.register(WorkType)
 
 @admin.register(models.FeedBack)
 class FeedBackAdmin(admin.ModelAdmin):

@@ -109,7 +109,9 @@ header {
 .navbar-menu li a {
     color: #fff;
     text-decoration: none;
-    padding: 10px;
+    padding: 20px;
+    
+    
     
     
 }
@@ -224,12 +226,17 @@ footer {
 }
 
 .navbar-logo {
-    height: 50px; /* или любой другой размер, который вам нужен */
+    height: 100px; /* или любой другой размер, который вам нужен */
     margin-right: 20px; /* отступ между логотипом и навигационными ссылками */
-    border-radius: 50%; /* Это делает изображение круглым */
+    border-radius: 25%; /* Это делает изображение круглым */
     object-fit: cover;
+    width: 125%;
 }
+.navbar-menu-a{
+    text-decoration: dashed;
+    
 
+}
 
 .background {
     position: fixed; /* Закрепляет элемент на экране */

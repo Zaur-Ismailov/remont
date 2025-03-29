@@ -77,11 +77,16 @@ WSGI_APPLICATION = 'remont.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "OPTIONS": {
-            "service": "my_service"
-        }}}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'remont',
+        'USER': 'Zaur',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': '5432'
+        
+    }
+    }
 
 
 
@@ -126,3 +131,4 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

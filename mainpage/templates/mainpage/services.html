@@ -1,23 +1,375 @@
 {% extends 'mainpage/baselayout.html' %}
+
 {% block content %}
+<style>
+    /* Основные стили страницы */
+    .services-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 30px 20px;
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+    }
 
-<body>
+    /* Заголовки */
+    .page-title {
+        font-size: 2.2rem;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        font-weight: 700;
+        text-align: center;
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .page-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: #3498db;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        color: #2c3e50;
+        margin: 40px 0 20px;
+        font-weight: 600;
+    }
+
+    /* Форма добавления работы */
+    .work-form {
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 40px;
+        border: 1px solid #eaeaea;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #2c3e50;
+        font-size: 1.1rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        outline: none;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        font-size: 1rem;
+        font-weight: 500;
+        text-align: center;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: none;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Таблица работ */
+    .works-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-top: 20px;
+        background: #fff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #eaeaea;
+    }
+
+    .works-table th {
+        background-color: #3498db;
+        color: white;
+        font-weight: 500;
+        padding: 15px;
+        text-align: left;
+        font-size: 1.1rem;
+    }
+
+    .works-table td {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        vertical-align: middle;
+    }
+
+    .works-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .works-table tr:hover {
+        background-color: #f8fafc;
+    }
+
+    .works-table tfoot td {
+        font-weight: 600;
+        background-color: #f8f9fa;
+        font-size: 1.1rem;
+    }
+
+    /* Кнопка удаления */
+    .btn-danger {
+        background-color: #e74c3c;
+        color: white;
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .btn-danger:hover {
+        background-color: #c0392b;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Сообщение о пустом списке */
+    .empty-message {
+        text-align: center;
+        color: #7f8c8d;
+        font-style: italic;
+        padding: 30px;
+        font-size: 1.1rem;
+    }
+
+    /* Цены и время */
+    .price {
+        font-weight: 600;
+        color: #27ae60;
+    }
+
+    .time {
+        font-weight: 600;
+        color: #3498db;
+    }
+
+    /* Анимации */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+        animation: fadeIn 0.3s ease-out forwards;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .page-title {
+            font-size: 1.8rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+        }
+        
+        .works-table {
+            display: block;
+            overflow-x: auto;
+        }
+        
+        .form-control, .btn {
+            padding: 10px 12px;
+        }
+    }
     
+</style>
 
-    <main class="services_content">
-        <section id="services">
-            <h2 class="services_h">Наши услуги</h2>
-            <p>Мы специализируемся на следующих услугах:</p>
-            <ul>
-                <li>Ремонт помещений под ключ</li>
-                <li>Отдлека готовых помещений</li>
-                <li>Создание дизайна помещений</li>
+<div class="services-container">
+    <h1 class="page-title">Выберите тип работы и метраж</h1>
+
+    <div class="work-form">
+        <form id="workForm" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.work_type.label_tag }}
+                {{ form.work_type }}
+            </div>
+            <div class="form-group">
+                {{ form.area.label_tag }}
+                {{ form.area }}
+            </div>
+            <button type="submit" class="btn btn-primary">Добавить работу</button>
+        </form>
+    </div>
+
+    <h2 class="section-title">Выбранные работы</h2>
+    <table class="works-table">
+        <thead>
+            <tr>
+                <th>Тип работы</th>
+                <th>Метраж (m²)</th>
+                <th>Стоимость</th>
+                <th>Время</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for work in selected_works %}
+            <tr id="work-{{ work.id }}" class="fade-in">
+                <td>{{ work.work_type.name }}</td>
+                <td>{{ work.area }}</td>
+                <td class="price">{{ work.total_cost|floatformat:2 }} руб.</td>
+                <td class="time">{{ work.total_time|floatformat:2 }} ч.</td>
+                <td><button class="btn btn-danger remove-btn" data-id="{{ work.id }}">Удалить</button></td>
+            </tr>
+            {% empty %}
+            <tr id="no-works">
+                <td colspan="5" class="empty-message">Нет выбранных работ</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Итого:</th>
+                <td></td>
+                <td id="total-cost" class="price">{{ total_cost|floatformat:2 }} руб.</td>
+                <td id="total-time" class="time">{{ total_time|floatformat:2 }} ч.</td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('workForm');
+    const tableBody = document.querySelector('.works-table tbody');
+    const noWorksRow = document.getElementById('no-works');
+    const totalCostCell = document.getElementById('total-cost');
+    const totalTimeCell = document.getElementById('total-time');
+
+    // Обработка добавления работы
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        fetch(form.action, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: new FormData(form)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                form.reset();
                 
-            </ul>
-        </section>
-    </main>
-    
-   
-</body>
-</html>
+                if (noWorksRow) noWorksRow.remove();
+                
+                const newRow = document.createElement('tr');
+                newRow.id = `work-${data.work.id}`;
+                newRow.className = 'fade-in';
+                newRow.innerHTML = `
+                    <td>${data.work.name}</td>
+                    <td>${data.work.area}</td>
+                    <td class="price">${parseFloat(data.work.cost).toFixed(2)} руб.</td>
+                    <td class="time">${parseFloat(data.work.time).toFixed(2)} ч.</td>
+                    <td><button class="btn btn-danger remove-btn" data-id="${data.work.id}">Удалить</button></td>
+                `;
+                tableBody.appendChild(newRow);
+                
+                updateTotals();
+                
+                newRow.querySelector('.remove-btn').addEventListener('click', removeWork);
+            } else {
+                alert('Ошибка: ' + JSON.stringify(data.errors));
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    // Обработка удаления работы
+    function removeWork(e) {
+        const workId = e.target.dataset.id;
+        
+        fetch(`/remove_work/${workId}/`, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const row = document.getElementById(`work-${workId}`);
+                row.style.opacity = '0';
+                row.style.transform = 'translateX(-50px)';
+                setTimeout(() => {
+                    row.remove();
+                    updateTotals();
+                    
+                    if (tableBody.querySelectorAll('tr').length === 0) {
+                        const newRow = document.createElement('tr');
+                        newRow.id = 'no-works';
+                        newRow.innerHTML = '<td colspan="5" class="empty-message">Нет выбранных работ</td>';
+                        tableBody.appendChild(newRow);
+                    }
+                }, 300);
+            } else {
+                alert('Ошибка при удалении работы');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Функция для обновления итоговых значений
+    function updateTotals() {
+        let totalCost = 0;
+        let totalTime = 0;
+        
+        tableBody.querySelectorAll('tr').forEach(row => {
+            if (row.id && row.id.startsWith('work-')) {
+                const costCell = row.cells[2];
+                const timeCell = row.cells[3];
+                totalCost += parseFloat(costCell.textContent);
+                totalTime += parseFloat(timeCell.textContent);
+            }
+        });
+        
+        totalCostCell.textContent = `${totalCost.toFixed(2)} руб.`;
+        totalTimeCell.textContent = `${totalTime.toFixed(2)} ч.`;
+    }
+
+    // Добавляем обработчики для существующих кнопок удаления
+    document.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', removeWork);
+    });
+});
+</script>
 {% endblock %}
