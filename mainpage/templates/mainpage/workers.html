@@ -1,0 +1,20 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <script src={% static 'mainpage/script_workers.js' %}></script>
+    <link rel="stylesheet" href={% static 'mainpage/style.css' %}>
+</head>
+<body>
+    <h1>Свободные рабочие</h1>
+    <div id="workers">
+        <a href="#worker1" class="available" id="Плиточник">"Рабочий плиточник"</a>
+        <a href="#worker2" class="unavailable" id="Подсобный">"Подсобный рабочий"</a>
+        <a href="#worker3" class="available" id="Отделка">"Рабочий по отделке"</a>
+        <a href="#worker4" class="unavailable" id="Черновые">"Рабочий по черновым работам"</a>
+        <!-- Список рабочих, отличных друг от друга по типу работ (id) -->
+    </div>
+</body>
+</html>

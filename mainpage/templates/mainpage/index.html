@@ -1,0 +1,135 @@
+{% extends 'mainpage/baselayout.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="main-container">
+        <section id="home">
+            <h1>Профессиональный ремонт и отделка помещений</h1>
+            <p class="MainText">Мы создаем уют и комфорт в вашем доме уже более 10 лет. Наша команда профессионалов выполнит ремонт любой сложности - от косметического обновления до полной перепланировки. Качественные материалы, современные технологии и индивидуальный подход к каждому клиенту.</p>
+            <p class="MainText">Оставьте заявку на бесплатный расчет стоимости ремонта и получите 10% скидку на первый заказ!</p>
+        </section>
+
+        <section id="services">
+            <h2>Наши услуги</h2>
+            <p class="MainText">Полный спектр строительных и отделочных работ под ключ. Мы используем только проверенные материалы и современное оборудование.</p>
+            <div class="services_image_container">
+                <div class="service-item">
+                    <img class="services_img" src="{% static 'mainpage/images/Plitka.png' %}" alt="Укладка плитки">
+                    <h3 style="text-align: center; margin-top: 15px;">Укладка плитки</h3>
+                    <p style="text-align: center;">Безупречная укладка любой сложности</p>
+                </div>
+                <div class="service-item">
+                    <img class="services_img" src="{% static 'mainpage/images/Valik.png' %}" alt="Малярные работы">
+                    <h3 style="text-align: center; margin-top: 15px;">Малярные работы</h3>
+                    <p style="text-align: center;">Идеально ровные стены и потолки</p>
+                </div>
+                <div class="service-item">
+                    <img class="services_img" src="{% static 'mainpage/images/Gips.png' %}" alt="Гипсокартонные конструкции">
+                    <h3 style="text-align: center; margin-top: 15px;">Гипсокартонные работы</h3>
+                    <p style="text-align: center;">Создание любых конструкций</p>
+                </div>
+                <div class="service-item">
+                    <img class="services_img" src="{% static 'mainpage/images/Nule.png' %}" alt="Черновая отделка">
+                    <h3 style="text-align: center; margin-top: 15px;">Черновая отделка</h3>
+                    <p style="text-align: center;">Подготовка помещений под чистовую отделку</p>
+                </div>
+            </div>
+        </section>
+
+
+    <section id="about">
+        <h2>О компании</h2>
+        <p class="MainText">Мы - команда профессионалов с многолетним опытом в сфере ремонта и отделки помещений. Наши специалисты проходят регулярное обучение и используют только современные технологии.</p>
+
+        <div style="display: flex; justify-content: center; gap: 30px; margin-top: 40px; flex-wrap: wrap;">
+            <div style="text-align: center; max-width: 250px;">
+                <h3 style="color: #e74c3c;">10+ лет</h3>
+                <p>Успешной работы на рынке</p>
+            </div>
+            <div style="text-align: center; max-width: 250px;">
+                <h3 style="color: #e74c3c;">200+</h3>
+                <p>Реализованных проектов</p>
+            </div>
+            <div style="text-align: center; max-width: 250px;">
+                <h3 style="color: #e74c3c;">50+</h3>
+                <p>Постоянных клиентов</p>
+            </div>
+            <div style="text-align: center; max-width: 250px;">
+                <h3 style="color: #e74c3c;">3 года</h3>
+                <p>Гарантии на все работы</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="feedback">
+        <h2>Отзывы наших клиентов</h2>
+        <p class="MainText">Мы ценим доверие каждого клиента и стремимся к безупречному качеству работ.</p>
+
+        <div id="reviews-container"></div>
+
+        <p class="MainText" style="margin-top: 30px;">Оставьте и свой отзыв после завершения работ!</p>
+    </section>
+
+
+<div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+
+
+    </div>
+
+        <script>
+    // Система отзывов
+    const reviews = [
+        {text: "Отличная компания! Ремонт сделали быстро и качественно.", author: "Анна, Москва"},
+        {text: "Работа выполнена на высоком уровне. Всем рекомендую!", author: "Иван, Подольск"},
+        {text: "Приятно было сотрудничать. Все сделали вовремя и в срок.", author: "Елена, Химки"},
+        {text: "Очень доволен результатом. Спасибо команде!", author: "Дмитрий, Балашиха"},
+        {text: "Ремонт превзошел все ожидания. Восхитительная работа!", author: "Ольга, Мытищи"},
+        {text: "Отличный сервис и профессиональный подход к делу.", author: "Сергей, Королёв"},
+        {text: "Превосходные специалисты, результат на высоте.", author: "Мария, Люберцы"},
+        {text: "Сервис, который действительно заботится о клиентах.", author: "Алексей, Реутов"}
+    ];
+
+    let currentIndex = 0;
+
+    function showNewReviews() {
+        const container = document.getElementById('reviews-container');
+        container.innerHTML = '';
+
+        for (let i = 0; i < 3; i++) {
+            const review = reviews[(currentIndex + i) % reviews.length];
+            const reviewDiv = document.createElement('div');
+            reviewDiv.className = 'review';
+            reviewDiv.innerHTML = `
+                <p>${review.text}</p>
+                <p style="font-weight: bold; margin-top: 15px; color: #e74c3c;">— ${review.author}</p>
+            `;
+            container.appendChild(reviewDiv);
+        }
+
+        currentIndex += 3;
+        if (currentIndex >= reviews.length) {
+            currentIndex = 0;
+        }
+    }
+
+    // Кнопка "Наверх"
+    window.addEventListener('scroll', function() {
+        const scrollTop = document.querySelector('.scroll-top');
+        if (window.pageYOffset > 300) {
+            scrollTop.classList.add('visible');
+        } else {
+            scrollTop.classList.remove('visible');
+        }
+    });
+
+    // Инициализация
+    window.onload = function() {
+        showNewReviews();
+        setInterval(showNewReviews, 5000);
+    };
+</script>
+
+
+    </div>
+{% endblock %}

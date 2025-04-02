@@ -1,0 +1,135 @@
+{% extends 'mainpage/baselayout.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .project-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .project-card {
+        width: 100%;
+        max-width: 400px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .project-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .project-card img {
+        width: 100%;
+        height: 250px; /* Фиксированная высота для всех изображений */
+        object-fit: cover; /* Обеспечивает правильное масштабирование изображения */
+        display: block;
+    }
+
+    .project-info {
+        padding: 15px;
+
+    }
+
+    .project-info h3 {
+        margin-top: 0;
+        color: #333;
+    }
+
+    .project-info p {
+        margin: 8px 0;
+        color: #080800;
+        font-size: 14px;
+    }
+
+    .project-info p strong {
+        color: #333;
+    }
+
+    .testimonial {
+        margin: 40px auto;
+        max-width: 800px;
+        text-align: center;
+        font-style: italic;
+        color: #555;
+    }
+
+    .author {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .intro-text {
+        text-align: center;
+        margin-bottom: 30px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+
+    <div class="main-container">
+        <section id="projects">
+            <h2>Реализованные проекты</h2>
+            <p class="intro-text">Мы гордимся каждым выполненным проектом. Вот некоторые из наших успешных работ по ремонту и дизайну помещений:</p>
+
+            <div class="project-gallery">
+                <!-- Проект 1 -->
+                <div class="project-card">
+                    <img src="{% static 'mainpage/images/kva.webp' %}" alt="Ремонт элитной квартиры">
+                    <div class="project-info">
+                        <h3>Элитная квартира в центре Москвы</h3>
+                        <p><strong>Площадь:</strong> 120 м²</p>
+                        <p><strong>Срок выполнения:</strong> 3 месяца</p>
+                        <p><strong>Особенности:</strong> Полная перепланировка, мраморные полы, дизайнерская отделка стен, умный дом</p>
+                        <p>Современный дизайн с элементами классики. Использованы экологичные материалы премиум-класса.</p>
+                    </div>
+                </div>
+
+                <!-- Проект 2 -->
+                <div class="project-card">
+                    <img src="{% static 'mainpage/images/ofice.jpg' %}" alt="Офисный ремонт">
+                    <div class="project-info">
+                        <h3>Офис IT-компании</h3>
+                        <p><strong>Площадь:</strong> 350 м²</p>
+                        <p><strong>Срок выполнения:</strong> 2.5 месяца</p>
+                        <p><strong>Особенности:</strong> Открытое пространство, soundproof переговорные, зона отдыха</p>
+                        <p>Современный лофт-стиль с индустриальными элементами. Уделено особое внимание эргономике и комфорту сотрудников.</p>
+                    </div>
+                </div>
+
+                <!-- Проект 3 -->
+                <div class="project-card">
+                    <img src="{% static 'mainpage/images/zdom.jpg' %}" alt="Загородный дом">
+                    <div class="project-info">
+                        <h3>Загородный дом в Подмосковье</h3>
+                        <p><strong>Площадь:</strong> 240 м²</p>
+                        <p><strong>Срок выполнения:</strong> 5 месяцев</p>
+                        <p><strong>Особенности:</strong> Каминная зона, панорамные окна, экологичные материалы</p>
+                        <p>Скандинавский стиль с теплыми деревянными элементами. Полная отделка "под ключ" с мебелью.</p>
+                    </div>
+                </div>
+
+                <!-- Проект 4 -->
+                <div class="project-card">
+                    <img src="{% static 'mainpage/images/kuhnya.jpg' %}" alt="Кухня-гостиная">
+                    <div class="project-info">
+                        <h3>Кухня-гостиная в новостройке</h3>
+                        <p><strong>Площадь:</strong> 45 м²</p>
+                        <p><strong>Срок выполнения:</strong> 1 месяц</p>
+                        <p><strong>Особенности:</strong> Объединение пространства, барная стойка, скрытое хранение</p>
+                        <p>Современный минимализм с акцентами. Функциональное пространство для семьи из 4 человек.</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% load static %}
+{% load bootstrap4 %}
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% bootstrap_css %}
+        <link rel="stylesheet" href="{% static 'mainpage/style.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+        <title>Строительная Компания</title>
+    </head>
+    <body>
+        {% block menu %}
+        <header>
+            <nav class="navbar">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'mainpage/images/NewLogo.png' %}" alt="Логотип" class="navbar-logo">
+                </a>
+
+                <div class="navbar-container">
+                    <!-- Левая часть меню -->
+                    <ul class="navbar-menu navbar-menu-left">
+                        <li><a href="{% url 'home' %}">Главная</a></li>
+                        <li><a href="{% url 'services' %}">Услуги</a></li>
+                        <li><a href="{% url 'projects' %}">Проекты</a></li>
+                        <li><a href="{% url 'about' %}">О нас</a></li>
+                        <li><a href="{% url 'contact' %}">Контакты</a></li>
+                    </ul>
+
+                    <ul class="navbar-menu navbar-menu-right">
+                        {% if user.is_authenticated %}
+                            <li>
+                                {{ user.username }}
+                            </li>
+                            <li>
+                                <form action="{% url 'logout' %}" method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-link p-0 border-0" style="background: none; color: inherit; cursor: pointer;">
+                                        Выйти
+                                    </button>
+                                </form>
+                            </li>
+                        {% else %}
+                            <li><a href="{% url 'login' %}">Войти</a></li>
+                            <li><a href="{% url 'register_client' %}">Регистрация</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        {% endblock %}
+
+
+
+        {% block content %}
+
+        {% endblock %}
+
+        {% include 'mainpage/footer.html' %}
+
+        <script>
+        // Функция для получения CSRF токена
+        function getCSRFToken() {
+            let cookieValue = null;
+            const name = 'csrftoken';
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        </script>
+
+
+     </body>
+ </html>
