@@ -112,6 +112,7 @@ body {
 
 .navbar-menu-right {
    justify-content: flex-end;
+   margin: 0 100px;
 }
 
 .navbar-menu li {
@@ -424,4 +425,57 @@ footer {
         transform: translateY(-3px);
     }
 
+.dropdown-menu {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 4px 0;
+}
 
+/* Стили пунктов меню */
+.dropdown-menu .dropdown-item {
+    color: #000 !important;
+    margin: 0;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    display: block;
+}
+
+/* Форма выхода */
+.dropdown-menu form {
+    margin: 10;
+    padding: 0;
+}
+
+.dropdown-menu button[type="submit"] {
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+/* Разделитель */
+.dropdown-divider {
+    margin: 6px 0;
+    border-top: 1px solid #e9ecef;
+}
+
+.project-form-container {
+    padding-bottom: 100px;
+}
+
+.project-form-table th,
+.project-form-table td {
+    vertical-align: middle;
+}
+
+.project-form-table .work-cost,
+.project-form-table #total-cost {
+    font-weight: bold;
+    text-align: right;
+}
+
+.project-form-buttons {
+    margin-bottom: 3rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}

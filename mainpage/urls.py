@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView # Импортируем LoginView и LogoutView
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('', views.index, name='home'),
@@ -15,5 +16,6 @@ urlpatterns = [
     path('register/', views.register_client, name='register_client'),
     path('register/success/', views.registration_success, name='registration_success'),
     path('login/', LoginView.as_view(next_page='home', template_name='mainpage/login.html'), name='login'),
-    path('logout/', LogoutView.as_view(next_page='/'), name='logout')
+    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('create_project/', login_required(views.create_project), name='create_project')
 ]

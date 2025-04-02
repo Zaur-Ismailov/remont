@@ -1,0 +1,106 @@
+{% extends 'mainpage/baselayout.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container mt-4 project-form-container">
+    <h2>Создание нового проекта</h2>
+
+    <form method="post" id="project-form">
+        {% csrf_token %}
+
+        <div class="card mb-4">
+            <div class="card-header">Основная информация</div>
+            <div class="card-body">
+                {% bootstrap_form project_form %}
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">Виды работ</div>
+            <div class="card-body">
+                <table class="table table-bordered project-form-table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Вид работы</th>
+                            <th>Метраж (кв.м)</th>
+                            <th>Коэффициент</th>
+                            <th>Стоимость (руб)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for work in works %}
+                        <tr>
+                            <td>{{ work.name }} ({{ work.cost_per_sqm }} руб/кв.м)</td>
+                            <td>
+                                <input type="number"
+                                       name="work_{{ work.id }}_volume"
+                                       class="form-control volume-input"
+                                       data-work-id="{{ work.id }}"
+                                       data-cost="{{ work.cost_per_sqm }}"
+                                       step="0.01"
+                                       min="0"
+                                       placeholder="0.00">
+                            </td>
+                            <td>
+                                <input type="number"
+                                       name="work_{{ work.id }}_multiplier"
+                                       class="form-control multiplier-input"
+                                       data-work-id="{{ work.id }}"
+                                       value="1"
+                                       min="1">
+                            </td>
+                            <td class="work-cost" data-work-id="{{ work.id }}">0.00</td>
+                        </tr>
+                        {% endfor %}
+                        <tr class="table-info">
+                            <td colspan="3" class="text-right"><strong>Итого:</strong></td>
+                            <td id="total-cost">0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-group project-form-buttons">
+            <button type="submit" class="btn btn-primary">Сохранить проект</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary ml-2">Отмена</a>
+        </div>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const volumeInputs = document.querySelectorAll('.volume-input');
+    const multiplierInputs = document.querySelectorAll('.multiplier-input');
+
+    function calculateCost() {
+        let total = 0;
+
+        volumeInputs.forEach(input => {
+            const workId = input.dataset.workId;
+            const costPerSqm = parseFloat(input.dataset.cost);
+            const volume = parseFloat(input.value) || 0;
+            const multiplier = parseFloat(document.querySelector(`.multiplier-input[data-work-id="${workId}"]`).value) || 1;
+
+            const workCost = volume * costPerSqm * multiplier;
+            document.querySelector(`.work-cost[data-work-id="${workId}"]`).textContent = workCost.toFixed(2);
+
+            total += workCost;
+        });
+
+        document.getElementById('total-cost').textContent = total.toFixed(2);
+    }
+
+    volumeInputs.forEach(input => {
+        input.addEventListener('input', calculateCost);
+    });
+
+    multiplierInputs.forEach(input => {
+        input.addEventListener('input', calculateCost);
+    });
+
+    calculateCost();
+});
+</script>
+{% endblock %}

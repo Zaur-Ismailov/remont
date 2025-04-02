@@ -29,16 +29,23 @@
 
                     <ul class="navbar-menu navbar-menu-right">
                         {% if user.is_authenticated %}
-                            <li>
-                                {{ user.username }}
-                            </li>
-                            <li>
-                                <form action="{% url 'logout' %}" method="post" class="d-inline">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-link p-0 border-0" style="background: none; color: inherit; cursor: pointer;">
-                                        Выйти
-                                    </button>
-                                </form>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                                    {{ user.username }}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#" >Профиль</a>
+                                    <a class="dropdown-item" href="#">Настройки</a>
+                                    <a class="dropdown-item" href="{% url 'create_project' %}">Создать проект</a>
+                                    <a class="dropdown-item" href="#">Обратная связь</a>
+                                    <div class="dropdown-divider"></div>
+                                    <form action="{% url 'logout' %}" method="post" class="px-2 py-1">
+                                        {% csrf_token %}
+                                        <button type="submit" class="dropdown-item btn btn-link p-0 text-start" style="width: 100%;">
+                                            Выйти
+                                        </button>
+                                    </form>
+                                </div>
                             </li>
                         {% else %}
                             <li><a href="{% url 'login' %}">Войти</a></li>
@@ -50,13 +57,13 @@
         </header>
         {% endblock %}
 
-
-
         {% block content %}
-
         {% endblock %}
 
         {% include 'mainpage/footer.html' %}
+
+        <!-- Подключаем jQuery, Popper.js и Bootstrap JS -->
+        {% bootstrap_javascript jquery='full' %}
 
         <script>
         // Функция для получения CSRF токена
@@ -75,8 +82,11 @@
             }
             return cookieValue;
         }
+
+        // Инициализация dropdown вручную для Bootstrap 4
+        $(document).ready(function(){
+            $('.dropdown-toggle').dropdown();
+        });
         </script>
-
-
-     </body>
- </html>
+    </body>
+</html>
